@@ -1,0 +1,55 @@
+.NewMemberWindowWrapper{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: #00000050;
+}
+
+.NewMemberWindowContainer {
+    position: relative; 
+    width: 70%;
+    height: 70%;
+    background: #dddddd;
+    margin: auto;
+    margin-top: 10vh;
+    border: 4px solid black;
+    border-radius: 12pt;
+}
+
+.TopBar {
+    height: 10%;
+    background: #999999;
+    border-radius: 8pt 8pt 0 0;
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
+    padding: 4pt;
+}
+
+.NameField {
+    height: 70%;
+    width: 50%;
+}
+
+.InitiativeField {
+    width: 24pt;
+    height: 70%;
+    margin: 4pt;
+}
+
+.AddButton {
+    height: 80%;
+}
+
+.Close {
+    border-radius: 9999pt;
+    position: absolute;
+    top: calc(10vh - 12pt);
+    left: calc(85% - 12pt);
+    width: 24pt;
+    height: 24pt;
+    background: red;
+    color: white;
+}

@@ -1,0 +1,43 @@
+.App {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+.TopBar {
+  height: 5vh;
+  background: #33ff77;
+}
+
+.MainView {
+  display: flex;
+  width: 100vw;
+  height: 70vh;
+}
+
+.BottomBar {
+  background: #cc00ff;
+  width: 100vw;
+  height: 25vh;
+}
+
+.TimelineContainer{
+  background: #ff5577;
+  width: 70vw;
+}
+
+.MemberListContainer{
+  background: #5577ff;
+  width: 30vw;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+}

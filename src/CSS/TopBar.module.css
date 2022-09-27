@@ -1,0 +1,25 @@
+.TopBarContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.EncounterMemberToolbar{
+    height: 100%;
+    background: #00dd00;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.ClearInitiativeButton {
+    height: 80%;
+}
+
+.NewMemberButton {
+    height: 80%;
+    width: 28pt;
+    margin: 4pt;
+}

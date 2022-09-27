@@ -1,0 +1,16 @@
+.MemberCardContainer{
+    background: #dddddd;
+}
+
+.Title{
+    display: flex;
+}
+
+.Name {
+    text-align: center;
+    width: 80%;
+}
+
+.InitiativeField {
+    width: 20%;
+}
