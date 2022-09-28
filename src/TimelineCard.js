@@ -20,8 +20,8 @@ class TimelineCard extends React.Component{
         return(
             <div className={cardContainerStyle}>
                 <div className={styles.TimelineTitle}>
+                    <p className={styles.InitiativeBox}>{this.props.member.initiative   }</p>
                     <p className={styles.Name}>{this.props.member.name}</p>
-                    <input className={styles.InitiativeBox} type="number" value={this.props.member.initiative} onChange={this.handleChange}/>
                 </div>
             </div>
         );

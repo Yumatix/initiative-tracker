@@ -10,7 +10,7 @@ class TimelineView extends React.Component {
             initiativeOrder: [],
             currentRound: [],
             gameActive: false,
-            autoRound: false
+            autoRound: true
         };
         this.handleIterationsChange = this.handleIterationsChange.bind(this);
     }
@@ -25,7 +25,7 @@ class TimelineView extends React.Component {
             <div className={styles.TimelineViewContainer}>
                 <div className={styles.TimelineToolbar}>
                     <button type="button" onClick={this.toggleAutoRound} className={autoRoundBtnClass}>
-                        Next Round Auto
+                        Auto Round
                     </button>
                     <button type="button" onClick={this.toggleActive} className={activeBtnClass}>
                         Start
@@ -69,18 +69,27 @@ class TimelineView extends React.Component {
         this.props.onInitiativeChange(newInitiative, memberIndex);
     }
 
-
     renderCurrentRound() {
         let toRender = [];
         let myTurnMarked = false;
 
-        // Auto generate new round when current round ends        
-        if (this.state.autoRound){
-            if (this.state.currentRound.length <= 0 && this.state.gameActive === true) {
+        if (this.state.currentRound.length <= 0 && this.state.gameActive === true){
+            
+            // Auto generate new round when current round ends        
+            if (this.state.autoRound){
                 let newRound = this.generateRound();
                 this.setState({currentRound : newRound});
+                this.onTurnStart(newRound[0]);
+                this.onRoundEnd();
+            } 
+            // Automatically set "active" to off when the round ends, if auto is turned off
+            else {
+                this.setState({gameActive: false});
+                this.onRoundEnd();
             }
-        }
+        } 
+
+
         
 
         if(this.state.currentRound.length > 0){
@@ -183,13 +192,29 @@ class TimelineView extends React.Component {
     }
 
     nextTurn = () => {
-        let updatedRound = [];
 
+        // Call onTurnEnd event
+        this.onTurnEnd(this.state.currentRound[0]);
+
+        // Remove current turn member, shifting all the other members in the round down an index
+        let updatedRound = [];
         for (let i = 1; i < this.state.currentRound.length; i++){
             updatedRound.push(this.state.currentRound[i]);
         }
-
         this.setState({currentRound : updatedRound});
+
+        // Call onTurnStart event
+        if (updatedRound.length > 0) {this.onTurnStart(updatedRound[0]);
+        }
+    }
+
+    onTurnStart = (startingMember) => {
+    }
+
+    onTurnEnd = (endingMember) => {
+    }
+
+    onRoundEnd = () => {
     }
 }
 

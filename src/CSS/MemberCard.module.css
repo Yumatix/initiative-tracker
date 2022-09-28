@@ -1,9 +1,12 @@
 .MemberCardContainer{
-    background: #dddddd;
 }
 
 .Title{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #dddddd;
+    height: 24pt;
 }
 
 .Name {
@@ -12,5 +15,31 @@
 }
 
 .InitiativeField {
-    width: 20%;
+    width: 10%;
+    height: 80%;
+}
+
+.Statuses{
+    display: flex;
+    background: #eeeeee;
+}
+
+.StatusArea{
+    height: 10vh;
+    outline: 2px solid black;
+    display: flex;
+    width: 100%;
+}
+
+.StatusList{
+    outline : 1px solid green;
+    width: calc(100% / 3);
+    height: 100%;
+    margin: 0;
+}
+
+.DeleteButton{
+    background: red;
+    color: white;
+    height: 100%;
 }

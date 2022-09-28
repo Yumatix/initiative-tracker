@@ -1,5 +1,7 @@
 import React from "react"
 import styles from "./CSS/MemberCard.module.css"
+import StatusIcon from "./StatusIcon";
+import { Droppable } from "react-beautiful-dnd";
 
 class MemberCard extends React.Component {
     constructor(props){
@@ -14,14 +16,63 @@ class MemberCard extends React.Component {
         this.props.onInitiativeChange(newInitiative, this.props.member.index)
     }
 
+    confirmDeleteCharacter = () => {
+        let confirmation = window.confirm("Do you want to delete " + this.props.member.name + "?");
+        if (confirmation) {
+            this.props.onDeleteMember(this.props.member.index);
+        }
+    }
+
     render(){
         let valueToRender = (this.props.member.initiative === null) ? "" : this.props.member.initiative;
+
+        let startStatusesID = "startStatuses" + this.props.member.index;
+        let generalStatusesID = "generalStatuses" + this.props.member.index;
+        let endStatusesID = "endStatuses" + this.props.member.index;
 
         return(
             <div className={styles.MemberCardContainer}>
                 <div className={styles.Title}>
-                    <p className={styles.Name}>{this.props.member.name}</p>
                     <input className={styles.InitiativeField} type="number" value={valueToRender} onChange={this.handleChange}/>
+                    <p className={styles.Name}>{this.props.member.name}</p>
+                    <button className={styles.DeleteButton} onClick={this.confirmDeleteCharacter}>X</button>
+                </div>
+                <div className={styles.Statuses}>
+                    <div className={styles.StatusArea}>
+                        <Droppable droppableId={startStatusesID}>
+                            {(provided) => (
+                                <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
+                                    {this.props.member.statuses[0].map((i, index) => {
+                                        let id = i.id + ("_" + this.props.member.index) + index
+                                        return <StatusIcon status={i} key={id} draggableId={id} index={index}/>
+                                    })}
+                                    {provided.placeholder}
+                                </ul>
+                            )}
+                        </Droppable>
+                        <Droppable droppableId={generalStatusesID}>
+                            {(provided) => (
+                                <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
+                                    {this.props.member.statuses[1].map((i, index) => {
+                                        let id = i.id + ("_" + this.props.member.index) + index
+                                        return <StatusIcon status={i} key={id} draggableId={id} index={index}/>
+                                    })}
+                                    {provided.placeholder}
+                                </ul>
+                            )}
+                        </Droppable>
+                        <Droppable droppableId={endStatusesID}>
+                            {(provided) => (
+                                <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
+                                    {this.props.member.statuses[2].map((i, index) => {
+                                        let id = i.id + ("_" + this.props.member.index) + index
+                                        return <StatusIcon status={i} key={id} draggableId={id} index={index}/>
+                                    })}
+                                    {provided.placeholder}
+                                </ul>
+                            )}
+                        </Droppable>
+                    </div>
                 </div>
             </div>
         );

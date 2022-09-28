@@ -19,7 +19,7 @@ class MemberListView extends React.Component {
 
     renderMemberList = list => {
         return list.map(i => {
-           return <MemberCard member={i} onInitiativeChange={this.handleInitiativeChange}/>
+           return <MemberCard member={i} onInitiativeChange={this.handleInitiativeChange} onDeleteMember={this.props.onDeleteMember}/>
         })
     }
 
