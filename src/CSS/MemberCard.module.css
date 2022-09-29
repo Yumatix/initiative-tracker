@@ -25,17 +25,40 @@
 }
 
 .StatusArea{
-    height: 10vh;
     outline: 2px solid black;
     display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
-.StatusList{
-    outline : 1px solid green;
-    width: calc(100% / 3);
+.StatusListContainer{
+    height: 32pt;
+    display: flex;
+    border-bottom: 1px dotted black;
+}
+
+.StatusListTitle{
+    display: inline;
     height: 100%;
+    width: 25%;
+    flex: auto;
+    font-size: 10pt;
     margin: 0;
+    padding: 6pt 0 0 6pt;
+}
+
+.StatusList{
+    border-left: 2px solid black;
+    height: 100%;
+    width: 75%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    overflow: hidden;
+    flex: auto;
 }
 
 .DeleteButton{

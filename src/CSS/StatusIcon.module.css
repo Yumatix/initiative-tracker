@@ -1,3 +1,21 @@
 .Container{
-    width: 12pt;
+    width: 32pt;
+    height: 32pt;
+    margin: 2pt;
+    padding: 2pt;
+    outline: 1px solid black;
+    border-radius: 4pt;
+}
+
+.SmallContainer{
+    width: 24pt;
+    height: 24pt;
+    margin: 2pt;
+    overflow: hidden;
+    border: 2px solid black;
+    border-radius: 4pt;
+}
+
+img {
+    height: 100%; width: 100%;
 }

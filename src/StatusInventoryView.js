@@ -10,11 +10,11 @@ class StatusInventoryView extends React.Component {
         this.state={
             statuses: []
         }
-        
-        this.state.statuses.push(this.props.statusManager.createStatus(0));
-        this.state.statuses.push(this.props.statusManager.createStatus(1));
-        this.state.statuses.push(this.props.statusManager.createStatus(2));
-        this.state.statuses.push(this.props.statusManager.createStatus(3));
+
+        // Load statuses from the StatusManager
+        this.props.statusManager.StatusTemplates.forEach(i => {
+            this.state.statuses.push(i);
+        })
     }
 
     renderStatusIcons(){
@@ -25,11 +25,11 @@ class StatusInventoryView extends React.Component {
 
     render(){
         return(
-            <Droppable droppableId="statusInventory">
+            <Droppable droppableId="statusInventory" direction="horizontal">
                 {(provided) => (
                     <ul className={styles.StatusInventory} {...provided.droppableProps} ref={provided.innerRef}>
                         {this.state.statuses.map((i, index) => {
-                            return <StatusIcon status={i} key={i.id+""} draggableId={i.id+""} index={index}/>    
+                            return <StatusIcon small={true} status={i} key={i.id+""} draggableId={i.id+""} index={index}/>    
                         })}
                         {provided.placeholder}
                     </ul>

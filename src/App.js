@@ -21,7 +21,7 @@ class App extends React.Component {
     }
 
     this.SM = new StatusManager();
-    this.SM.loadTestStatuses();
+    this.SM.loadDefaultStatuses("/icons/rf/");
 
     // manually fill the member list for testing
     this.state.memberList.push(new EncounterMember(0, "test0", 12));
@@ -114,7 +114,7 @@ class App extends React.Component {
             default: targetListId = -1; break;
           }
 
-          newMemberList[targetMemberIndex].addStatus(this.SM.createStatus(result.draggableId), targetListId);
+          newMemberList[targetMemberIndex].addStatus(this.SM.createStatus(result.draggableId, true), targetListId);
 
           this.setState({memberList : newMemberList})
       }}

@@ -39,37 +39,47 @@ class MemberCard extends React.Component {
                 </div>
                 <div className={styles.Statuses}>
                     <div className={styles.StatusArea}>
-                        <Droppable droppableId={startStatusesID}>
+                        <Droppable droppableId={startStatusesID} direction="horizontal">
                             {(provided) => (
-                                <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
-                                    {this.props.member.statuses[0].map((i, index) => {
-                                        let id = i.id + ("_" + this.props.member.index) + index
-                                        return <StatusIcon status={i} key={id} draggableId={id} index={index}/>
-                                    })}
-                                    {provided.placeholder}
-                                </ul>
+                                <div className={styles.StatusListContainer}>
+                                    <p className={styles.StatusListTitle}>Turn Start</p>
+                                    <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
+                                        {this.props.member.statuses[0].map((i, index) => {
+                                            let id = i.id + ("_" + this.props.member.index) + index
+                                            return <StatusIcon small={true} status={i} key={id} draggableId={id} index={index}/>
+                                        })}
+                                        {provided.placeholder}
+                                    </ul>
+                                </div>
                             )}
                         </Droppable>
-                        <Droppable droppableId={generalStatusesID}>
+                        <Droppable droppableId={generalStatusesID} direction="horizontal">
                             {(provided) => (
-                                <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
-                                    {this.props.member.statuses[1].map((i, index) => {
-                                        let id = i.id + ("_" + this.props.member.index) + index
-                                        return <StatusIcon status={i} key={id} draggableId={id} index={index}/>
-                                    })}
-                                    {provided.placeholder}
-                                </ul>
+                                <div className={styles.StatusListContainer}>
+                                    <p className={styles.StatusListTitle}>General</p>
+                                    <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
+                                        {this.props.member.statuses[1].map((i, index) => {
+                                            let id = i.id + ("_" + this.props.member.index) + index
+                                            return <StatusIcon small={true} status={i} key={id} draggableId={id} index={index}/>
+                                        })}
+                                        {provided.placeholder}
+                                    </ul>
+                                </div>
+                                
                             )}
                         </Droppable>
-                        <Droppable droppableId={endStatusesID}>
+                        <Droppable droppableId={endStatusesID} direction="horizontal">
                             {(provided) => (
-                                <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
-                                    {this.props.member.statuses[2].map((i, index) => {
-                                        let id = i.id + ("_" + this.props.member.index) + index
-                                        return <StatusIcon status={i} key={id} draggableId={id} index={index}/>
-                                    })}
-                                    {provided.placeholder}
-                                </ul>
+                                <div className={styles.StatusListContainer}>
+                                    <p className={styles.StatusListTitle}>Turn End</p>
+                                    <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
+                                        {this.props.member.statuses[2].map((i, index) => {
+                                            let id = i.id + ("_" + this.props.member.index) + index
+                                            return <StatusIcon small={true} status={i} key={id} draggableId={id} index={index}/>
+                                        })}
+                                        {provided.placeholder}
+                                    </ul>
+                                </div>
                             )}
                         </Droppable>
                     </div>

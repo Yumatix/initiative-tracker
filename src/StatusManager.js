@@ -2,6 +2,7 @@
 // As well as helping to easily create new statuses from those templates
 
 import Status from "./Status";
+import defaultStatusesJSON from "./defaultStatuses.json";
 
 class StatusManager {
     constructor(){
@@ -17,9 +18,28 @@ class StatusManager {
         this.StatusTemplates.push(new Status(3));
     }
 
-    createStatus(templateId) { 
+    loadDefaultStatuses = (iconDirectory) => {
+        defaultStatusesJSON.forEach(i => {
+            let iconPath = "";
+            iconPath = iconDirectory + i.icon;
+            console.log("Loading icon:  " + iconPath);
+            this.StatusTemplates.push(new Status(i.id, i.name, i.desc, iconPath));
+        });
+    }
+
+    createStatus(templateId, unique) { 
+        
+        let uniqueId = "";
+        if (unique){
+            let now = new Date();
+            uniqueId += "-" + now.getTime();
+        }
+
         return new Status(
-            this.StatusTemplates[templateId].id
+            this.StatusTemplates[templateId].id+uniqueId,
+            this.StatusTemplates[templateId].name,
+            this.StatusTemplates[templateId].desc,
+            this.StatusTemplates[templateId].icon
         );
     }
 }
