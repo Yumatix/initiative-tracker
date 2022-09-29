@@ -6,24 +6,41 @@ class EncounterMember{
         this.statuses = [[], [], []];
     };
 
-    addStatus = (status, listId) => {
+    addStatus = (status, listId, timeout) => {
         if ([0,1,2].includes(listId)){
-            this.statuses[listId].push(status);
+            this.statuses[listId].push({
+                "status" : status,
+                "timeout" : timeout
+            });
         } else {
             console.log("Invalid ID: " + listId)
         }
         
     }
 
+    onTurnEnd = () => {
+
+        // Tick down statuses with timouts, removing any if needed
+        for (let i = 0; i < this.statuses.length; i++){
+            for (let j = 0; j < this.statuses[i].length; j++){
+                if (this.statuses[i][j].timeout*1 > 0){
+                    this.statuses[i][j].timeout--;
+
+                }
+
+                if (this.statuses[i][j].timeout*1 === 0){
+                    this.removeStatus(j, i);
+                }
+            }
+        }
+    }
+
     removeStatus = (statusId, listId) => {
         if ([0,1,2].includes(listId)){
-            console.log("ID to remove: " + statusId);
             let removeIndex = -1;
             for (let i = 0; i < this.statuses[listId].length; i++){
-                console.log(this.statuses[listId][i].id);
-                if(this.statuses[listId][i].id == statusId){removeIndex=i; break;}
+                if(this.statuses[listId][i].status.id === statusId){removeIndex=i; break;}
             }
-            console.log("removing " + removeIndex);
             this.statuses[listId].splice(removeIndex, 1);
         } else {
             console.log("Invalid ID: " + listId)

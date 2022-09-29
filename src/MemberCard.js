@@ -45,8 +45,8 @@ class MemberCard extends React.Component {
                                     <p className={styles.StatusListTitle}>Turn Start</p>
                                     <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
                                         {this.props.member.statuses[0].map((i, index) => {
-                                            let id = i.id + ("_" + this.props.member.index) + index
-                                            return <StatusIcon small={true} status={i} key={id} draggableId={id} index={index}/>
+                                            let id = i.status.id + ("_" + this.props.member.index) + index
+                                            return <StatusIcon small={true} status={i.status} key={id} draggableId={id} index={index}/>
                                         })}
                                         {provided.placeholder}
                                     </ul>
@@ -59,8 +59,8 @@ class MemberCard extends React.Component {
                                     <p className={styles.StatusListTitle}>General</p>
                                     <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
                                         {this.props.member.statuses[1].map((i, index) => {
-                                            let id = i.id + ("_" + this.props.member.index) + index
-                                            return <StatusIcon small={true} status={i} key={id} draggableId={id} index={index}/>
+                                            let id = i.status.id + ("_" + this.props.member.index) + index
+                                            return <StatusIcon small={true} status={i.status} key={id} draggableId={id} index={index}/>
                                         })}
                                         {provided.placeholder}
                                     </ul>
@@ -74,8 +74,8 @@ class MemberCard extends React.Component {
                                     <p className={styles.StatusListTitle}>Turn End</p>
                                     <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
                                         {this.props.member.statuses[2].map((i, index) => {
-                                            let id = i.id + ("_" + this.props.member.index) + index
-                                            return <StatusIcon small={true} status={i} key={id} draggableId={id} index={index}/>
+                                            let id = i.status.id + ("_" + this.props.member.index) + index
+                                            return <StatusIcon small={true} status={i.status} key={id} draggableId={id} index={index}/>
                                         })}
                                         {provided.placeholder}
                                     </ul>

@@ -5,6 +5,11 @@ class Status {
         this.desc = desc;
         this.icon = icon;
     }
+
+    // Set a timeout in turns before this status runs out. 
+    setTimeout = (turnCount) => {
+
+    }
 }
 
 export default Status;

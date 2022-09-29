@@ -208,10 +208,13 @@ class TimelineView extends React.Component {
         }
     }
 
+
+    // NOTE: These event handlers simply pass-through to the higher up, App level event handlers. 
     onTurnStart = (startingMember) => {
     }
 
     onTurnEnd = (endingMember) => {
+        this.props.onTurnEnd(endingMember.index);
     }
 
     onRoundEnd = () => {

@@ -87,6 +87,23 @@ class App extends React.Component {
     else {return null;} 
   }
 
+  onTurnStart = (startingMemberIndex) => {
+
+  }
+
+  onTurnEnd = (endingMemberIndex) => {
+    this.state.memberList[endingMemberIndex].onTurnEnd();
+
+    //Update the memberList state to force a re-render of member statuses
+    let newMemberList = [];
+    this.state.memberList.forEach(e => {newMemberList.push(e)});
+    this.setState({memberList : newMemberList});
+  }
+
+  onRoundEnd = () => {
+
+  }
+
   handleOnDragEnd = (result) => {
     console.log(result);
 
@@ -114,7 +131,7 @@ class App extends React.Component {
             default: targetListId = -1; break;
           }
 
-          newMemberList[targetMemberIndex].addStatus(this.SM.createStatus(result.draggableId, true), targetListId);
+          newMemberList[targetMemberIndex].addStatus(this.SM.createStatus(result.draggableId, true), targetListId, -1);
 
           this.setState({memberList : newMemberList})
       }}
@@ -157,7 +174,13 @@ class App extends React.Component {
 
           <div className = "MainView">
             <div className="TimelineContainer">
-              <TimelineView memberList={this.state.memberList} onInitiativeChange={this.handleInitiativeChange}/>
+              <TimelineView 
+                memberList={this.state.memberList} 
+                onInitiativeChange={this.handleInitiativeChange}
+                onTurnStart={this.onTurnStart}
+                onTurnEnd={this.onTurnEnd}
+                onRoundEnd={this.onRoundEnd}
+              />
             </div>
 
             <div className="MemberListContainer">
