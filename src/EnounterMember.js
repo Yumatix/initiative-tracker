@@ -12,20 +12,29 @@ class EncounterMember{
                 "status" : status,
                 "timeout" : timeout
             });
+            return [status.id, this.index];
         } else {
             console.log("Invalid ID: " + listId)
         }
         
     }
 
-    onTurnEnd = () => {
+    getStatusById = (statusId) => {
+        for (let i = 0; i < this.statuses.length; i++){
+            for (let j = 0; j < this.statuses[i].length; j++){
+                if(this.statuses[i][j].status.id == statusId){
+                    return this.statuses[i][j];
+                }
+            }
+        }
+    }
 
+    onTurnEnd = () => {
         // Tick down statuses with timouts, removing any if needed
         for (let i = 0; i < this.statuses.length; i++){
             for (let j = 0; j < this.statuses[i].length; j++){
                 if (this.statuses[i][j].timeout*1 > 0){
                     this.statuses[i][j].timeout--;
-
                 }
 
                 if (this.statuses[i][j].timeout*1 === 0){

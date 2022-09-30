@@ -5,6 +5,7 @@ import MemberListView from "./MemberListView.js";
 import TopBar from "./TopBar.js";
 import NewMemberWindow from "./NewMemberWindow.js";
 import StatusInventoryView from './StatusInventoryView';
+import StatusEditWindow from './StatusEditWindow';
 import StatusManager from './StatusManager';
 import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -15,9 +16,9 @@ class App extends React.Component {
   constructor (props){
     super(props);
     this.state = {
-      memberList: [],
-      initiativeOrder: [],
-      addMemberWindowVisible: false
+      memberList: [], // Array of EncounterMember objects
+      addMemberWindowVisible: false,
+      targetStatus: [] // [statusId, memberIndex]. Used to populate the status editor window
     }
 
     this.SM = new StatusManager();
@@ -104,6 +105,30 @@ class App extends React.Component {
 
   }
 
+  populateStatusEditWindow = (statusId, memberIndex) => {
+    this.setState({targetStatus: [statusId, memberIndex]});
+  }
+
+  getStatusData = (statusId, memberIndex) => {
+    if (statusId == null || memberIndex == null) {return;}
+
+    if (this.state.memberList[memberIndex] !== 'undefined'){
+      return this.state.memberList[memberIndex].getStatusById(statusId);
+    } else {
+      console.log("member index doesn't exist: " + memberIndex);
+    }
+  }
+
+  clearTargetStatus = () => {
+    this.setState({targetStatus: []});
+  }
+
+  manualUpdate = () => {
+    let newMemberList = [];
+    this.state.memberList.forEach(e => {newMemberList.push(e)});
+    this.setState({memberList : newMemberList});
+  }
+
   handleOnDragEnd = (result) => {
     console.log(result);
 
@@ -131,7 +156,9 @@ class App extends React.Component {
             default: targetListId = -1; break;
           }
 
-          newMemberList[targetMemberIndex].addStatus(this.SM.createStatus(result.draggableId, true), targetListId, -1);
+          let newStatus = newMemberList[targetMemberIndex].addStatus(this.SM.createStatus(result.draggableId, true), targetListId, 3);
+          console.log("Created status with ID: " + newStatus[0] + " on member: " + newStatus[1] + " in target list: " + targetListId);
+
 
           this.setState({memberList : newMemberList})
       }}
@@ -149,12 +176,12 @@ class App extends React.Component {
         let toRemoveId = result.draggableId.split("_")[0];
 
         let targetListId = -1;
-          switch(sourceMemberId.charAt(0)){
-            case 's': targetListId = 0; break;
-            case 'g': targetListId = 1; break;
-            case 'e': targetListId = 2; break;
-            default: targetListId = -1; break;
-          }
+        switch(sourceMemberId.charAt(0)){
+          case 's': targetListId = 0; break;
+          case 'g': targetListId = 1; break;
+          case 'e': targetListId = 2; break;
+          default: targetListId = -1; break;
+        }
 
         newMemberList[sourceMemberIndex].removeStatus(toRemoveId, targetListId);
       }
@@ -184,7 +211,12 @@ class App extends React.Component {
             </div>
 
             <div className="MemberListContainer">
-              <MemberListView memberList={this.state.memberList} onInitiativeChange={this.handleInitiativeChange} onDeleteMember={this.deleteEncounterMember}/>
+              <MemberListView 
+                memberList={this.state.memberList} 
+                onInitiativeChange={this.handleInitiativeChange} 
+                onDeleteMember={this.deleteEncounterMember}
+                onStatusClicked={this.populateStatusEditWindow}
+                />
             </div>
           </div>
 
@@ -192,6 +224,13 @@ class App extends React.Component {
             <StatusInventoryView statusManager={this.SM}/>
           </div>
         </DragDropContext>
+        <StatusEditWindow 
+          targetStatus={this.state.targetStatus}
+          statusData={this.getStatusData(this.state.targetStatus[0], this.state.targetStatus[1])}
+          key={this.state.targetStatus[0]}
+          clearTargetStatus={this.clearTargetStatus}
+          manualUpdate={this.manualUpdate}
+        />
       </div>
     );
   }

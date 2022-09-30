@@ -17,9 +17,13 @@ class MemberListView extends React.Component {
         this.props.onInitiativeChange(newInitiative, memberIndex);
     }
 
+    onStatusClicked = (statusId, memberIndex) => {
+        this.props.onStatusClicked(statusId, memberIndex);
+    }
+
     renderMemberList = list => {
         return list.map(i => {
-           return <MemberCard member={i} onInitiativeChange={this.handleInitiativeChange} onDeleteMember={this.props.onDeleteMember}/>
+           return <MemberCard member={i} onStatusClicked={this.onStatusClicked} onInitiativeChange={this.handleInitiativeChange} onDeleteMember={this.props.onDeleteMember}/>
         })
     }
 

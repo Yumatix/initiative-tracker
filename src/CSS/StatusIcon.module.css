@@ -8,6 +8,7 @@
 }
 
 .SmallContainer{
+    position: relative;
     width: 24pt;
     height: 24pt;
     margin: 2pt;
@@ -18,4 +19,21 @@
 
 img {
     height: 100%; width: 100%;
+}
+
+.TimerWrapper{
+    height: 100%; width: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #00000099;
+    pointer-events: none;
+
+}
+.Timer{
+    color: white;
+    font-size: 16pt;
+    pointer-events: none;
 }

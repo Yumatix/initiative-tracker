@@ -1,0 +1,91 @@
+.WindowContainer {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 30vw;
+    height: 30vh;
+    background: white;
+    margin: 0;
+    padding: 0;
+    border: 4px solid black;
+    border-radius: 8pt
+}
+
+.TitleBar {
+    background: #7777ff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48pt;
+}
+.TitleWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    outline: 1px solid green;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+}
+.TimerWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+}
+.Icon{
+    width: 40pt;
+    height: 40pt;
+    margin: 8pt;
+    border-radius: 4pt;
+    outline: 2px solid black;
+}
+.Title {
+    width: calc(100% - 12pt);
+    outline: 1px solid red;
+    padding: 4pt;
+    margin: 0;
+}
+.TimerLabel {
+    flex: auto;
+    width: 100%;
+    height: 9pt;
+    padding: 3pt;
+    outline: 1px solid green;
+    font-size: 10pt;
+    text-align: right;
+}
+.TimerField {
+    flex: auto;
+    width: 24pt;
+    font-size: 10pt;
+}
+
+.ContentWrapper {
+    margin: 0;
+    padding: 0;
+    height: calc(100% - 52pt);
+    width: calc(100% - 4pt);
+}
+
+.Description {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border-radius: 0 0 4pt 4pt;
+}
+
+.CloseButtonWrapper {
+    height: 100%;
+    outline: 1px solid blue;
+}
+
+.CloseButton {
+    background: red;
+    color: white;
+    width: 18pt;
+    height: 18pt;
+
+}

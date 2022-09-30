@@ -6,9 +6,16 @@ class Status {
         this.icon = icon;
     }
 
-    // Set a timeout in turns before this status runs out. 
-    setTimeout = (turnCount) => {
+    setName = (newName) => {
+        this.name = newName;
+    }
 
+    setDesc = (newDesc) => {
+        this.desc = newDesc;
+    }
+
+    setIconPath = (newIconPath) => {
+        this.icon = newIconPath;
     }
 }
 
