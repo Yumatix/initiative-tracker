@@ -96,10 +96,10 @@ class TimelineView extends React.Component {
             toRender.push(this.state.currentRound.map(i => {
                 if (!myTurnMarked) {
                     myTurnMarked = true;
-                    return <TimelineCard member={i} myTurn={true}/>
+                    return <TimelineCard member={i} myTurn={true} onStatusClicked={this.onStatusClicked} iteration={0}/>
                 } 
                 else {
-                    return <TimelineCard member={i} myTurn={false}/>
+                    return <TimelineCard member={i} myTurn={false} onStatusClicked={this.onStatusClicked} iteration={0}/>
                 }
             }));
         }
@@ -138,12 +138,24 @@ class TimelineView extends React.Component {
 
         for (let i = 0; i < this.state.iterations; i++) {
             toRender.push(<div className={styles.Separator}></div>)
-            toRender.push(this.state.initiativeOrder.map(i => {
-                return <TimelineCard member={i} onChange={this.handleInitiativeChange}/>
+            toRender.push(this.state.initiativeOrder.map(m => {
+                let hasGoneYet = false;
+                this.state.currentRound.forEach(roundMember => {
+                    if (roundMember.index === m.index){
+                        hasGoneYet = true;
+                    }
+                })
+
+
+                return <TimelineCard member={m} onChange={this.handleInitiativeChange} onStatusClicked={this.onStatusClicked} iteration={hasGoneYet ? i+1 : i}/>
             }))
         }
 
         return toRender;
+    }
+
+    onStatusClicked = (statusId, memberIndex, windowPos) => {
+        this.props.onStatusClicked(statusId, memberIndex, windowPos)
     }
 
     generateRound(){

@@ -28,7 +28,7 @@ class MemberCard extends React.Component {
     }
 
     render(){
-        let valueToRender = (this.props.member.initiative === null) ? "" : this.props.member.initiative;
+        let initiativeToRender = (this.props.member.initiative === null) ? "" : this.props.member.initiative;
 
         let startStatusesID = "startStatuses" + this.props.member.index;
         let generalStatusesID = "generalStatuses" + this.props.member.index;
@@ -37,7 +37,7 @@ class MemberCard extends React.Component {
         return(
             <div className={styles.MemberCardContainer}>
                 <div className={styles.Title}>
-                    <input className={styles.InitiativeField} type="number" value={valueToRender} onChange={this.handleChange}/>
+                    <input className={styles.InitiativeField} type="number" value={initiativeToRender} onChange={this.handleChange}/>
                     <p className={styles.Name}>{this.props.member.name}</p>
                     <button className={styles.DeleteButton} onClick={this.confirmDeleteCharacter}>X</button>
                 </div>
@@ -50,7 +50,7 @@ class MemberCard extends React.Component {
                                     <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
                                         {this.props.member.statuses[0].map((i, index) => {
                                             let id = i.status.id + ("_" + this.props.member.index) + index
-                                            return <StatusIcon timer={this.props.member.statuses[0][index].timeout} onStatusClicked={this.onStatusClicked} small={true} status={i.status} key={id} draggableId={id} index={index}/>
+                                            return <StatusIcon timer={i.timeout} onStatusClicked={this.onStatusClicked} small={true} status={i.status} key={id} draggableId={id} index={index}/>
                                         })}
                                         {provided.placeholder}
                                     </ul>
@@ -64,7 +64,7 @@ class MemberCard extends React.Component {
                                     <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
                                         {this.props.member.statuses[1].map((i, index) => {
                                             let id = i.status.id + ("_" + this.props.member.index) + index
-                                            return <StatusIcon timer={this.props.member.statuses[1][index].timeout} onStatusClicked={this.onStatusClicked} small={true} status={i.status} key={id} draggableId={id} index={index}/>
+                                            return <StatusIcon timer={i.timeout} onStatusClicked={this.onStatusClicked} small={true} status={i.status} key={id} draggableId={id} index={index}/>
                                         })}
                                         {provided.placeholder}
                                     </ul>
@@ -79,7 +79,7 @@ class MemberCard extends React.Component {
                                     <ul className={styles.StatusList} {...provided.droppableProps} ref={provided.innerRef}>
                                         {this.props.member.statuses[2].map((i, index) => {
                                             let id = i.status.id + ("_" + this.props.member.index) + index
-                                            return <StatusIcon timer={this.props.member.statuses[2][index].timeout} onStatusClicked={this.onStatusClicked} small={true} status={i.status} key={id} draggableId={id} index={index}/>
+                                            return <StatusIcon timer={i.timeout} onStatusClicked={this.onStatusClicked} small={true} status={i.status} key={id} draggableId={id} index={index}/>
                                         })}
                                         {provided.placeholder}
                                     </ul>

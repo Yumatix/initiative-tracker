@@ -26,9 +26,9 @@ class App extends React.Component {
     this.SM.loadDefaultStatuses("/icons/rf/");
 
     // manually fill the member list for testing
-    this.state.memberList.push(new EncounterMember(0, "test0"));
-    this.state.memberList.push(new EncounterMember(1, "test1"));
-    this.state.memberList.push(new EncounterMember(2, "test2"));
+    this.state.memberList.push(new EncounterMember(0, "test0", 12));
+    this.state.memberList.push(new EncounterMember(1, "test1", 10));
+    this.state.memberList.push(new EncounterMember(2, "test2", 8));
   }
 
   handleInitiativeChange = (newInitiative, memberIndex) => {
@@ -154,7 +154,6 @@ class App extends React.Component {
           let targetMemberId = result.destination.droppableId;
           let targetMemberIndex = targetMemberId.charAt(targetMemberId.length - 1)*1;
 
-          // TODO: this is kinda gross.. should maybe at least move it into a function since we reuse it later
           let targetListId = -1;
           switch(targetMemberId.charAt(0)){
             case 's': targetListId = 0; break;
@@ -206,6 +205,7 @@ class App extends React.Component {
                 onTurnStart={this.onTurnStart}
                 onTurnEnd={this.onTurnEnd}
                 onRoundEnd={this.onRoundEnd}
+                onStatusClicked={this.populateStatusEditWindow}
               />
             </div>
 
