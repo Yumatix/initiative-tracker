@@ -1,9 +1,10 @@
 class Status {
-    constructor(id, name, desc, icon){
+    constructor(id, name, desc, icon, immutable){
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.icon = icon;
+        this.immutable = immutable
     }
 
     setName = (newName) => {

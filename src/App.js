@@ -110,8 +110,15 @@ class App extends React.Component {
   }
 
   getStatusData = (statusId, memberIndex) => {
-    if (statusId == null || memberIndex == null) {return;}
+    // No status ID passed
+    if (statusId == null) {return;}
 
+    // Getting status not tied to an EncounterMember
+    if (memberIndex == null) {
+      return {status: this.SM.getStatusTemplate(statusId), timeout: ""};
+    }
+
+    // Getting status tied to encounter member
     if (this.state.memberList[memberIndex] !== 'undefined'){
       return this.state.memberList[memberIndex].getStatusById(statusId);
     } else {
@@ -175,14 +182,6 @@ class App extends React.Component {
         let sourceMemberIndex = sourceMemberId.charAt(sourceMemberId.length - 1)*1;
         let toRemoveId = result.draggableId.split("_")[0];
 
-        let targetListId = -1;
-        switch(sourceMemberId.charAt(0)){
-          case 's': targetListId = 0; break;
-          case 'g': targetListId = 1; break;
-          case 'e': targetListId = 2; break;
-          default: targetListId = -1; break;
-        }
-
         newMemberList[sourceMemberIndex].removeStatuses([toRemoveId]);
       }
     }
@@ -221,7 +220,7 @@ class App extends React.Component {
           </div>
 
           <div className = "BottomBar">
-            <StatusInventoryView statusManager={this.SM}/>
+            <StatusInventoryView onStatusClicked={this.populateStatusEditWindow} statusManager={this.SM}/>
           </div>
         </DragDropContext>
         <StatusEditWindow 

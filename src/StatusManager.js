@@ -23,7 +23,7 @@ class StatusManager {
             let iconPath = "";
             iconPath = iconDirectory + i.icon;
             console.log("Loading icon:  " + iconPath);
-            this.StatusTemplates.push(new Status(i.id, i.name, i.desc, iconPath));
+            this.StatusTemplates.push(new Status(i.id, i.name, i.desc, iconPath, true));
         });
     }
 
@@ -39,8 +39,19 @@ class StatusManager {
             this.StatusTemplates[templateId].id+uniqueId,
             this.StatusTemplates[templateId].name,
             this.StatusTemplates[templateId].desc,
-            this.StatusTemplates[templateId].icon
+            this.StatusTemplates[templateId].icon,
+            false
         );
+    }
+
+    getStatusTemplate(templateId){
+        let toReturn = null;
+        this.StatusTemplates.forEach(e => {
+            if (e.id === templateId) {
+                toReturn = e;
+            }
+        })
+        return toReturn;
     }
 }
 

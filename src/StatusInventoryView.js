@@ -17,10 +17,8 @@ class StatusInventoryView extends React.Component {
         })
     }
 
-    renderStatusIcons(){
-        let toRender = [];
-
-        toRender.push();
+    onStatusClicked = (statusId, windowPos) => {
+        this.props.onStatusClicked(statusId, null, windowPos);
     }
 
     render(){
@@ -29,7 +27,7 @@ class StatusInventoryView extends React.Component {
                 {(provided) => (
                     <ul className={styles.StatusInventory} {...provided.droppableProps} ref={provided.innerRef}>
                         {this.state.statuses.map((i, index) => {
-                            return <StatusIcon small={true} status={i} key={i.id+""} draggableId={i.id+""} index={index}/>    
+                            return <StatusIcon onStatusClicked={this.onStatusClicked} small={true} status={i} key={i.id+""} draggableId={i.id+""} index={index}/>    
                         })}
                         {provided.placeholder}
                     </ul>

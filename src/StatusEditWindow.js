@@ -7,9 +7,15 @@ class StatusEditWindow extends React.Component {
         super(props)
 
         this.state = {
-            statusData: this.props.statusData
+            statusData: this.props.statusData,
+            immutable: false
         }
 
+        // Store this separately so we have separate control over whether this value changes
+        if (this.props.statusData != null && Object.hasOwn(this.props.statusData, 'status')){
+            this.state.immutable = this.props.statusData.status.immutable
+        }
+         
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescChange = this.handleDescChange.bind(this);
     }
@@ -85,10 +91,10 @@ class StatusEditWindow extends React.Component {
                     <div className={styles.TitleBar}>
                         <img src={this.state.statusData.status.icon} className={styles.Icon}/>
                         <div className={styles.TitleWrapper}>
-                            <input onChange={this.handleNameChange} type="text" className={styles.Title} value={this.state.statusData.status.name}/>
+                            <input disabled={this.state.immutable} onChange={this.handleNameChange} type="text" className={styles.Title} value={this.state.statusData.status.name}/>
                             <div className={styles.TimerWrapper}>
                                 <label htmlFor="timerField" className={styles.TimerLabel}>Timer: </label>
-                                <input onChange={this.handleTimerChange} id="timerField" type="number" className={styles.TimerField} value={this.state.statusData.timeout}/>
+                                <input disabled={this.state.immutable} onChange={this.handleTimerChange} id="timerField" type="number" className={styles.TimerField} value={this.state.statusData.timeout}/>
                             </div>
                         </div>
                         <div className={styles.CloseButtonWrapper}>
@@ -96,7 +102,7 @@ class StatusEditWindow extends React.Component {
                         </div>   
                     </div>
                     <div className={styles.ContentWrapper}>
-                        <textarea onChange={this.handleDescChange} className={styles.Description} value={this.state.statusData.status.desc}/>
+                        <textarea disabled={this.state.immutable} onChange={this.handleDescChange} className={styles.Description} value={this.state.statusData.status.desc}/>
                     </div>
                 </div>
             );
