@@ -18,18 +18,17 @@ class App extends React.Component {
     this.state = {
       memberList: [], // Array of EncounterMember objects
       addMemberWindowVisible: false,
-      targetStatus: [] // [statusId, memberIndex]. Used to populate the status editor window
+      targetStatus: [], // [statusId, memberIndex]. Used to populate the status editor window
+      statusEditWindowPos: [] // [clientX, clientY] target coords for statusEditWindow. Note: these are the coords for where the user clicked/pressed. The window itself will internally adjust these coords to ensure it fits. 
     }
 
     this.SM = new StatusManager();
     this.SM.loadDefaultStatuses("/icons/rf/");
 
     // manually fill the member list for testing
-    this.state.memberList.push(new EncounterMember(0, "test0", 12));
+    this.state.memberList.push(new EncounterMember(0, "test0"));
     this.state.memberList.push(new EncounterMember(1, "test1"));
     this.state.memberList.push(new EncounterMember(2, "test2"));
-    this.state.memberList.push(new EncounterMember(3, "test3", 3));
-    this.state.memberList.push(new EncounterMember(4, "test4"));
   }
 
   handleInitiativeChange = (newInitiative, memberIndex) => {
@@ -103,8 +102,11 @@ class App extends React.Component {
 
   }
 
-  populateStatusEditWindow = (statusId, memberIndex) => {
-    this.setState({targetStatus: [statusId, memberIndex]});
+  populateStatusEditWindow = (statusId, memberIndex, windowPos) => {
+    this.setState({
+      targetStatus : [statusId, memberIndex],
+      statusEditWindowPos : windowPos
+    });
   }
 
   getStatusData = (statusId, memberIndex) => {
@@ -154,7 +156,7 @@ class App extends React.Component {
             default: targetListId = -1; break;
           }
 
-          let newStatus = newMemberList[targetMemberIndex].addStatus(this.SM.createStatus(result.draggableId, true), targetListId, 3);
+          let newStatus = newMemberList[targetMemberIndex].addStatus(this.SM.createStatus(result.draggableId, true), targetListId, "");
           console.log("Created status with ID: " + newStatus[0] + " on member: " + newStatus[1] + " in target list: " + targetListId);
 
 
@@ -181,7 +183,7 @@ class App extends React.Component {
           default: targetListId = -1; break;
         }
 
-        newMemberList[sourceMemberIndex].removeStatus(toRemoveId, targetListId);
+        newMemberList[sourceMemberIndex].removeStatuses([toRemoveId]);
       }
     }
   }
@@ -225,6 +227,7 @@ class App extends React.Component {
         <StatusEditWindow 
           targetStatus={this.state.targetStatus}
           statusData={this.getStatusData(this.state.targetStatus[0], this.state.targetStatus[1])}
+          windowPos={this.state.statusEditWindowPos}
           key={this.state.targetStatus[0]}
           clearTargetStatus={this.clearTargetStatus}
           manualUpdate={this.manualUpdate}

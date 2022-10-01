@@ -17,8 +17,8 @@ class MemberListView extends React.Component {
         this.props.onInitiativeChange(newInitiative, memberIndex);
     }
 
-    onStatusClicked = (statusId, memberIndex) => {
-        this.props.onStatusClicked(statusId, memberIndex);
+    onStatusClicked = (statusId, memberIndex, windowPos) => {
+        this.props.onStatusClicked(statusId, memberIndex, windowPos);
     }
 
     renderMemberList = list => {

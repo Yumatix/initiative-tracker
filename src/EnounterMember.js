@@ -30,37 +30,41 @@ class EncounterMember{
     }
 
     onTurnEnd = () => {
+        let toRemoveIds = [];
         // Tick down statuses with timouts
         for (let i = 0; i < this.statuses.length; i++){
             for (let j = 0; j < this.statuses[i].length; j++){
                 if (this.statuses[i][j].timeout*1 > 0){
                     this.statuses[i][j].timeout--;
+
+                    // If new timeout is zero, mark it for deletion
+                    if (this.statuses[i][j].timeout === 0){
+                        toRemoveIds.push(this.statuses[i][j].status.id);
+                    }
                 } 
             }
         }
 
         // Remove statuses that have a timeout value of zero
+        this.removeStatuses(toRemoveIds);
+    }
+
+    removeStatuses = (statusIdArray) => {
+
+        if (!Array.isArray(statusIdArray)){
+            console.warn("EncounterMember.removeStatuses() was passed a non-array as a function!")
+            return;
+        }
+
         let newStatuses = [[],[],[]];
         for (let i = 0; i < this.statuses.length; i++){
             this.statuses[i].forEach(e => {
-                if (e.timeout !== 0){
+                if (!(statusIdArray.includes(e.status.id))){
                     newStatuses[i].push(e);
                 }
             })
         }
         this.statuses = newStatuses;
-    }
-
-    removeStatus = (statusId, listId) => {
-        if ([0,1,2].includes(listId)){
-            let removeIndex = -1;
-            for (let i = 0; i < this.statuses[listId].length; i++){
-                if(this.statuses[listId][i].status.id === statusId){removeIndex=i; break;}
-            }
-            this.statuses[listId].splice(removeIndex, 1);
-        } else {
-            console.log("Invalid ID: " + listId)
-        }
     }
 }
 

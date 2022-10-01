@@ -23,8 +23,8 @@ class MemberCard extends React.Component {
         }
     }
 
-    onStatusClicked = (statusId) => {
-        this.props.onStatusClicked(statusId, this.props.member.index);
+    onStatusClicked = (statusId, windowPos) => {
+        this.props.onStatusClicked(statusId, this.props.member.index, windowPos);
     }
 
     render(){

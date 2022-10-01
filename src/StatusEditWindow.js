@@ -33,6 +33,26 @@ class StatusEditWindow extends React.Component {
         this.props.manualUpdate();
     }
 
+    getSafeWindowPos = (windowPos) => {
+        // TODO : promote sizes to variables, rather than hard-coding
+
+        let editWindowWidth = window.innerWidth * .3 + 16;
+
+        // Confine this window to the browser window
+        let maxX = window.innerWidth * .7 - 16;
+        let maxY = window.innerHeight * .7 - 16;
+        let safeX = Math.min(windowPos[0], maxX);
+        let safeY = Math.min(windowPos[1], maxY);
+
+        // Move left/right if covering the provided coordinates
+        // Since the provided coordinates are actually a representation of the statusIcon that we clicked
+        if (safeX < windowPos[0] && safeX+editWindowWidth > windowPos[0] + windowPos[2]) {
+            safeX = windowPos[0] - editWindowWidth;
+        }
+
+        return [safeX, safeY];
+    }
+
     render(){
         let showWindow = false;
         if (this.props.statusData != null && Object.hasOwn(this.props.statusData, 'status')){
@@ -40,8 +60,28 @@ class StatusEditWindow extends React.Component {
         }
 
         if (showWindow) {
+
+            // Position window
+            let targetPos = this.props.windowPos;
+            if (!Array.isArray(targetPos) || targetPos.length !== 4) {targetPos = [0,0,0,0]}
+            targetPos = this.getSafeWindowPos(targetPos);
+            let targetX = targetPos[0];
+            let targetY = targetPos[1];
+            
             return(
-                <div className={styles.WindowContainer}>
+                <div 
+                    style={{
+                        position: "absolute",
+                        top: targetY, 
+                        left: targetX,
+                        width: "30vw",
+                        height: "30vh",
+                        background: "white",
+                        margin: 0,
+                        padding: 0,
+                        border: "4px solid black",
+                        borderRadius: "8pt"
+                }}>
                     <div className={styles.TitleBar}>
                         <img src={this.state.statusData.status.icon} className={styles.Icon}/>
                         <div className={styles.TitleWrapper}>
