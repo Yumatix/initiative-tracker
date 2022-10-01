@@ -96,9 +96,7 @@ class App extends React.Component {
     this.state.memberList[endingMemberIndex].onTurnEnd();
 
     //Update the memberList state to force a re-render of member statuses
-    let newMemberList = [];
-    this.state.memberList.forEach(e => {newMemberList.push(e)});
-    this.setState({memberList : newMemberList});
+    this.manualUpdate();
   }
 
   onRoundEnd = () => {

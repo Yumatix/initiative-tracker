@@ -30,18 +30,25 @@ class EncounterMember{
     }
 
     onTurnEnd = () => {
-        // Tick down statuses with timouts, removing any if needed
+        // Tick down statuses with timouts
         for (let i = 0; i < this.statuses.length; i++){
             for (let j = 0; j < this.statuses[i].length; j++){
                 if (this.statuses[i][j].timeout*1 > 0){
                     this.statuses[i][j].timeout--;
-                }
-
-                if (this.statuses[i][j].timeout*1 === 0){
-                    this.removeStatus(j, i);
-                }
+                } 
             }
         }
+
+        // Remove statuses that have a timeout value of zero
+        let newStatuses = [[],[],[]];
+        for (let i = 0; i < this.statuses.length; i++){
+            this.statuses[i].forEach(e => {
+                if (e.timeout !== 0){
+                    newStatuses[i].push(e);
+                }
+            })
+        }
+        this.statuses = newStatuses;
     }
 
     removeStatus = (statusId, listId) => {
